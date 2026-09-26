@@ -2,33 +2,29 @@ export default function ProductCard({ nombre, precio, imagen, stock }) {
   const sinStock = stock === 0;
 
   return (
-    <div
-      className={`rounded-lg shadow-md overflow-hidden flex flex-col h-full ${
-        sinStock ? "border-2 border-red-500 bg-red-50" : "border border-gray-200"
-      }`}
-    >
-      <img
-        src={imagen}
-        alt={nombre}
-        className="w-full h-44 object-cover"
-      />
-      <div className="p-4 flex flex-col flex-1">
-        <h5 className="text-lg font-semibold mb-1">{nombre}</h5>
-        <p className="font-bold mb-1">${precio}</p>
-        <p className={`mb-3 ${sinStock ? "text-red-600" : "text-gray-500"}`}>
+    <div className={`card ${sinStock ? "has-background-danger-light" : ""}`}>
+      <div className="card-image">
+        <figure className="image is-4by3">
+          <img src={imagen} alt={nombre} style={{ objectFit: "cover" }} />
+        </figure>
+      </div>
+      <div className="card-content">
+        <p className="title is-5">{nombre}</p>
+        <p className="subtitle is-6 has-text-weight-bold">${precio}</p>
+        <p className={sinStock ? "has-text-danger" : "has-text-grey"}>
           {sinStock ? "Sin stock" : `Stock: ${stock}`}
         </p>
+      </div>
+      <footer className="card-footer">
         <button
           disabled={sinStock}
-          className={`mt-auto py-2 px-4 rounded font-medium text-white ${
-            sinStock
-              ? "bg-gray-400 cursor-not-allowed"
-              : "bg-blue-600 hover:bg-blue-700"
+          className={`card-footer-item button is-fullwidth ${
+            sinStock ? "is-static" : "is-primary"
           }`}
         >
           Agregar
         </button>
-      </div>
+      </footer>
     </div>
   );
 }
